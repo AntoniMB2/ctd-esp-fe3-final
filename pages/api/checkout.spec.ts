@@ -14,6 +14,7 @@ import {
     ERROR_METHOD_NOT_ALLOWED,
     ERROR_SERVER
 } from "dh-marvel/services/checkout/checkout.errors";
+import { NextApiRequest, NextApiResponse } from 'next';
 
 describe('Checkout', () => {
     describe('when sending a valid POST, customer and card data', () => {
@@ -23,7 +24,7 @@ describe('Checkout', () => {
                 method: 'POST',
                 body: order
             });
-            await handleCheckout(req, res);
+            await handleCheckout(req as unknown as NextApiRequest, res as unknown as NextApiResponse);
             expect(res._getStatusCode()).toBe(200)
             expect(JSON.parse(res._getData())).toEqual(
                 expect.objectContaining({data: order}),
@@ -35,7 +36,7 @@ describe('Checkout', () => {
             const {req, res} = createMocks({
                 method: 'GET',
             });
-            await handleCheckout(req, res);
+            await handleCheckout(req as unknown as NextApiRequest, res as unknown as NextApiResponse);
             expect(res._getStatusCode()).toBe(405)
             expect(JSON.parse(res._getData())).toEqual(
                 expect.objectContaining(ERROR_METHOD_NOT_ALLOWED),
@@ -48,7 +49,7 @@ describe('Checkout', () => {
                 method: 'POST',
                 body: {customer: {address: {address2: invalidAddress}}} as CheckoutInput
             });
-            await handleCheckout(req, res);
+            await handleCheckout(req as unknown as NextApiRequest, res as unknown as NextApiResponse);
             expect(res._getStatusCode()).toBe(400)
             expect(JSON.parse(res._getData())).toEqual(
                 expect.objectContaining(ERROR_INCORRECT_ADDRESS),
@@ -61,7 +62,7 @@ describe('Checkout', () => {
                 method: 'POST',
                 body: {} as CheckoutInput
             });
-            await handleCheckout(req, res);
+            await handleCheckout(req as unknown as NextApiRequest, res as unknown as NextApiResponse);
             expect(res._getStatusCode()).toBe(500)
             expect(JSON.parse(res._getData())).toEqual(
                 expect.objectContaining(ERROR_SERVER),
@@ -74,7 +75,7 @@ describe('Checkout', () => {
                 method: 'POST',
                 body: {customer: {address: {}}, card: {number: withoutFundsCard}} as CheckoutInput
             });
-            await handleCheckout(req, res);
+            await handleCheckout(req as unknown as NextApiRequest, res as unknown as NextApiResponse);
             expect(res._getStatusCode()).toBe(400)
             expect(JSON.parse(res._getData())).toEqual(
                 expect.objectContaining(ERROR_CARD_WITHOUT_FUNDS),
@@ -87,7 +88,7 @@ describe('Checkout', () => {
                 method: 'POST',
                 body: {customer: {address: {}}, card: {number: withoutAuthorizationCard}} as CheckoutInput
             });
-            await handleCheckout(req, res);
+            await handleCheckout(req as unknown as NextApiRequest, res as unknown as NextApiResponse);
             expect(res._getStatusCode()).toBe(400)
             expect(JSON.parse(res._getData())).toEqual(
                 expect.objectContaining(ERROR_CARD_WITHOUT_AUTHORIZATION),
@@ -100,7 +101,7 @@ describe('Checkout', () => {
                 method: 'POST',
                 body: {customer: {address: {}}, card: {number: '4111'}} as CheckoutInput
             });
-            await handleCheckout(req, res);
+            await handleCheckout(req as unknown as NextApiRequest, res as unknown as NextApiResponse);
             expect(res._getStatusCode()).toBe(400)
             expect(JSON.parse(res._getData())).toEqual(
                 expect.objectContaining(ERROR_CARD_DATA_INCORRECT),
