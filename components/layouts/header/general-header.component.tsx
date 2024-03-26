@@ -22,7 +22,7 @@ const Header: FC<Props> = ({variant}: Props) => {
             }}>DH-Marvel</MUILink>
             {variant == 'general' &&
                 <Box>
-                    <MUILink href="/" variant="body2" sx={{color: 'white', fontSize: 18, fontWeight: 600}}>FAQ</MUILink>
+                    <MUILink href="/faqs" variant="body2" sx={{color: 'white', fontSize: 18, fontWeight: 600}}>FAQ</MUILink>
                 </Box>
             }
         </Toolbar>

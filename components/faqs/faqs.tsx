@@ -3,12 +3,12 @@ import React from 'react';
 import { Accordion, AccordionSummary, AccordionDetails, Typography } from '@mui/material';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 
-interface FAQProps {
+export interface FAQProps {
   question: string;
   answer: string;
 }
 
-const FAQ: React.FC<FAQProps> = ({ question, answer }) => {
+const faqs: React.FC<FAQProps> = ({ question, answer }) => {
   return (
     <Accordion>
       <AccordionSummary
@@ -25,4 +25,4 @@ const FAQ: React.FC<FAQProps> = ({ question, answer }) => {
   );
 }
 
-export default FAQ;
+export default faqs;
