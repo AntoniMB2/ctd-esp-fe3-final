@@ -1,18 +1,28 @@
 // components/FAQ.tsx
 import React from 'react';
+import { Accordion, AccordionSummary, AccordionDetails, Typography } from '@mui/material';
+import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 
 interface FAQProps {
   question: string;
   answer: string;
 }
 
-const faqs: React.FC<FAQProps> = ({ question, answer }) => {
+const FAQ: React.FC<FAQProps> = ({ question, answer }) => {
   return (
-    <div>
-      <h2>{question}</h2>
-      <p>{answer}</p>
-    </div>
+    <Accordion>
+      <AccordionSummary
+        expandIcon={<ExpandMoreIcon />}
+      >
+        <Typography>{question}</Typography>
+      </AccordionSummary>
+      <AccordionDetails>
+        <Typography>
+          {answer}
+        </Typography>
+      </AccordionDetails>
+    </Accordion>
   );
 }
 
-export default faqs;
+export default FAQ;
