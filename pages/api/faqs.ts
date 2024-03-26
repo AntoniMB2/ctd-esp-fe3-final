@@ -1,5 +1,5 @@
 import { NextApiRequest, NextApiResponse } from 'next'
-import { faqsData } from '../../../../components/faqs/faqsData' // Importa tus datos
+import { faqsData } from '../../components/faqs/faqsData' // Importa tus datos
 
 export default function handler(
   req: NextApiRequest,
