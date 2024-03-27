@@ -1,11 +1,10 @@
 import React, { useState } from 'react';
-import { Comic } from './types';
+import {IComic} from "types/IComic.type";
 import ComicCard from './comicCard';
-import Pagination from './pagination';
 import { Grid } from '@mui/material';
 
 interface ComicGridProps {
-    comics: Comic[];
+    comics: IComic[];
 }
 
 const ComicGrid: React.FC<ComicGridProps> = ({ comics }) => {

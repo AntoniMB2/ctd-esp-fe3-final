@@ -1,10 +1,9 @@
 import React from "react";
 import Link from "next/link";
-import { Comic } from "./types";
 import { Card, CardContent, Typography, Button, Box } from "@mui/material";
-
+import {IComic} from "types/IComic.type";
 interface ComicCardProps {
- comic: Comic;
+ comic: IComic;
 }
 
 const ComicCard: React.FC<ComicCardProps> = ({ comic }) => {
@@ -40,11 +39,11 @@ const ComicCard: React.FC<ComicCardProps> = ({ comic }) => {
       "& > button": { flexGrow: 0.6, maxWidth: "40%", marginTop: "20px" },
      }}
     >
-     <Link href={`/comics/${comic.id}`}>
-      <Button variant="contained" size="small">
-       Comprar
-      </Button>
-     </Link>
+ <Link href={`/checkout/?title=${encodeURIComponent(comic.title)}&image=${encodeURIComponent(`${comic.thumbnail.path}.${comic.thumbnail.extension}`)}&price=${encodeURIComponent(comic.prices[0]?.price.toString())}`}>
+  <Button variant="contained" size="small">
+    Comprar
+  </Button>
+</Link>
 
      <Link href={`/comics/${comic.id}`}>
       <Button variant="contained" size="small" color="secondary">
