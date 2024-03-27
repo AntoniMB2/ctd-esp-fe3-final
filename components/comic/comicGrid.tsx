@@ -17,7 +17,9 @@ const ComicGrid: React.FC<ComicGridProps> = ({ comics }) => {
     };
 
     return (
-        <div>
+        <div style={{
+            padding: '0 10%',
+        }}>
             <Grid container spacing={2}>
                 {Array.isArray(comics) && comics.slice((page - 1) * itemsPerPage, page * itemsPerPage).map((comic) => (
                     <Grid item xs={12} sm={6} md={4} lg={3} key={comic.id}>
@@ -25,7 +27,7 @@ const ComicGrid: React.FC<ComicGridProps> = ({ comics }) => {
                     </Grid>
                 ))}
             </Grid>
-            <Pagination onPageChange={handlePageChange} />
+         
         </div>
     );
 };
