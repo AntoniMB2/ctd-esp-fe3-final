@@ -14,10 +14,12 @@ type Props = {
 const Index: NextPage<Props> = ({ initialComics }) => {
   const [comics, setComics] = useState(initialComics);
   const [currentPage, setCurrentPage] = useState(1);
+  const [isLoading, setIsLoading] = useState(false);
   const comicsPerPage = 12;
 
   useEffect(() => {
     const fetchComics = async () => {
+      setIsLoading(true);
       try {
         const offset = (currentPage - 1) * comicsPerPage;
         const data = await getComics(offset, comicsPerPage);
@@ -29,10 +31,15 @@ const Index: NextPage<Props> = ({ initialComics }) => {
       } catch (error) {
         console.error('Ocurrió un error al obtener los cómics', error);
       }
+      setIsLoading(false);
     };
 
     fetchComics();
   }, [currentPage]);
+
+  if (isLoading) {
+    return <p>Cargando...</p>;
+  }
 
   return (
     <>
