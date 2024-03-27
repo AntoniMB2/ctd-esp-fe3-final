@@ -5,7 +5,7 @@ import Head from "next/head";
 import { useRouter } from "next/router";
 import { IComic, IComicResponse } from "types/IComic.type";
 import ComicDetailsInfo from "dh-marvel/components/comicDetailsInfo/comic-details";
-
+import LayoutGeneral from "dh-marvel/components/layouts/layout-general";
 interface Props {
   comic: IComic;
 }
@@ -17,7 +17,8 @@ const ComicDetailPage: NextPage<Props> = ({ comic }) => {
   }
 
   return (
-    <>
+    <LayoutGeneral>
+   
       <Head>
         <title>{comic.title}</title>
         <meta
@@ -63,7 +64,7 @@ const ComicDetailPage: NextPage<Props> = ({ comic }) => {
           </Grid>
         </Grid>
       </Stack>
-    </>
+      </LayoutGeneral>
   );
 };
 

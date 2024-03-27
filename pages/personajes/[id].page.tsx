@@ -12,7 +12,6 @@ import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
 import { ICharacter, ICharacterResponse } from "types/ICharacter.type";
 import { IComic } from "types/IComic.type";
-
 interface Props {
   character: ICharacter;
 }
@@ -33,6 +32,7 @@ const CharacterPage: NextPage<Props> = ({ character }) => {
   if (!character) return <p>Cargando</p>;
 
   return (
+    <LayoutGeneral>
     <div>
       <Head>
         <title>{character.name} - Marvel</title>
@@ -131,6 +131,7 @@ const CharacterPage: NextPage<Props> = ({ character }) => {
         </Stack>
       )}
     </div>
+    </LayoutGeneral>
   );
 };
 

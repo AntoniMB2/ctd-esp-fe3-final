@@ -13,6 +13,7 @@ import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import NextLink from "next/link";
 import React, { FC } from "react";
 import { IComic } from "types/IComic.type";
+import Link from "next/link";
 
 interface Props {
  comic: IComic;
@@ -74,9 +75,16 @@ export const ComicDetailsInfo: FC<Props> = ({ comic }) => {
      </AccordionDetails>
     </Accordion>
    </CardContent>
+
+   <NextLink href={"/checkout"}>
    <Button variant="contained" color="primary" disabled={!comic || comic.creators.available === 0} fullWidth>
   {comic && comic.creators.available !== 0 ? "Comprar" : "Sin stock disponible"}
 </Button>
+</NextLink>
+
+   
+
+
   </Card>
  );
 };

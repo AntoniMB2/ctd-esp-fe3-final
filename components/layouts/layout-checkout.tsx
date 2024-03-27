@@ -9,7 +9,7 @@ import GeneralFooter from "dh-marvel/components/layouts/footer/general-footer.co
 const LayoutCheckout: FC<PropsWithChildren> = ({children}: PropsWithChildren) => {
 
     return (<>
-            <Stack direction={"column"} height={'100%'}>
+            <Stack direction={"column"} height={'100vh'}>
                 <GeneralHeader variant={'simple'}/>
                 <Box display={'flex'} flexGrow={1}>
                     {children}
