@@ -1,6 +1,8 @@
 import {generateAuthenticationString} from "dh-marvel/services/marvel/marvel-auth.service";
 
-const MARVEL_API_URL = process.env.MARVEL_API_URL;
+const MARVEL_API_URL = "https://gateway.marvel.com/v1/public"
+console.log(MARVEL_API_URL);
+
 
 const fetchApi = async (endpoint: string, urlParams?: string) => {
     const authString = generateAuthenticationString();
