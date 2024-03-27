@@ -75,7 +75,7 @@ export const ComicDetailsInfo: FC<Props> = ({ comic }) => {
     </Accordion>
    </CardContent>
    <Button variant="contained" color="primary" disabled={!comic || comic.creators.available === 0} fullWidth>
-  {comic && comic.creators.available !== 1 ? "Comprar" : "Sin stock disponible"}
+  {comic && comic.creators.available !== 0 ? "Comprar" : "Sin stock disponible"}
 </Button>
   </Card>
  );
