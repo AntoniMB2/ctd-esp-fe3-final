@@ -1,4 +1,5 @@
 import React from "react";
+import Link from "next/link";
 import { Comic } from "./types";
 import { Card, CardContent, Typography, Button, Box } from "@mui/material";
 
@@ -32,14 +33,25 @@ const ComicCard: React.FC<ComicCardProps> = ({ comic }) => {
      {comic.title}
     </Typography>
 
-    <Box sx={{ display: "flex", justifyContent: "space-between", '& > button': { flexGrow: 0.6, maxWidth: '40%', marginTop: '20px' }}}>
-    <Button variant="contained" size="small">Comprar</Button>
-    <Button variant="contained" size="small">Ver detalle</Button>
-</Box>
+    <Box
+     sx={{
+      display: "flex",
+      justifyContent: "space-between",
+      "& > button": { flexGrow: 0.6, maxWidth: "40%", marginTop: "20px" },
+     }}
+    >
+     <Button variant="contained" size="small">
+      Comprar
+     </Button>
+     <Link href={`/comics/${comic.id}`}>
+          <Button variant="contained" size="small">
+            Ver detalle
+          </Button>
+        </Link>
+    </Box>
    </CardContent>
   </Card>
  );
 };
 
 export default ComicCard;
-

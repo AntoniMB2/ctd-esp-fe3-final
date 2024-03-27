@@ -1,4 +1,5 @@
 import {generateAuthenticationString} from "dh-marvel/services/marvel/marvel-auth.service";
+import { response } from "msw";
 
 const MARVEL_API_URL = "https://gateway.marvel.com/v1/public"
 console.log(MARVEL_API_URL);
@@ -15,6 +16,8 @@ export const getComics = async (offset?: number, limit?: number) => {
     const params = new URLSearchParams();
     if (offset) params.set("offset", `${offset}`);
     if (limit) params.set("limit", `${limit}`);
+     const response = await fetchApi("comics", params.toString());
+    console.log(response); 
     return fetchApi("comics", params.toString());
 }
 
