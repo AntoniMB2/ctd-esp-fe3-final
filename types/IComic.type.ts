@@ -16,7 +16,7 @@ export interface IComicResponse {
   }
   
   export interface IComic {
-    id: string | number;
+    id: string ;
     priceHistory: Price[];
     previousPrice: number;
     digitalId: number;
