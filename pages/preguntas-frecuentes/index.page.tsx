@@ -1,6 +1,6 @@
 // pages/faqs.tsx
 import React from 'react';
-import FAQ from '../../components/faqs/faqs';
+import FAQ from '../../components/preguntas-frecuentes/index.page';
 
 interface FAQData {
   id: number;
@@ -9,7 +9,7 @@ interface FAQData {
 }
 
 export async function getStaticProps() {
-  const res = await fetch('https://ctd-esp-fe3-final-ten-liard.vercel.app/api/faqs');
+  const res = await fetch('https://ctd-esp-fe3-final-ten-liard.vercel.app/api/preguntas-frecuentes');
   const faqsData: FAQData[] = await res.json();
 
   return {

@@ -1,6 +1,6 @@
 // components/faqs/Faqs.stories.tsx
 import React from 'react';
-import Faqs, { FAQProps } from './faqs';
+import Faqs, { FAQProps } from './index.page';
 import { Story } from 'utils/storybook';
 
 const faqsStory = {
