@@ -18,6 +18,7 @@ interface Props {
  comic: IComic;
 }
 
+
 export const ComicDetailsInfo: FC<Props> = ({ comic }) => {
  return (
   <Card style={{ width: "450px" }}>
@@ -73,9 +74,9 @@ export const ComicDetailsInfo: FC<Props> = ({ comic }) => {
      </AccordionDetails>
     </Accordion>
    </CardContent>
-   <Button variant="contained" color="primary" disabled={!comic} fullWidth>
-    {comic ? "Comprar" : "Sin stock disponible"}
-   </Button>
+   <Button variant="contained" color="primary" disabled={!comic || comic.creators.available === 0} fullWidth>
+  {comic && comic.creators.available !== 1 ? "Comprar" : "Sin stock disponible"}
+</Button>
   </Card>
  );
 };
