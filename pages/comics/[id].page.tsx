@@ -4,7 +4,7 @@ import { GetStaticPaths, GetStaticProps, NextPage } from "next";
 import Head from "next/head";
 import { useRouter } from "next/router";
 import { IComic, IComicResponse } from "types/IComic.type";
-import ComicDetailsInfo from "dh-marvel/components/comicDetailsInfo/comic-details-info.component";
+import ComicDetailsInfo from "dh-marvel/components/comicDetailsInfo/comic-details";
 
 interface Props {
   comic: IComic;
