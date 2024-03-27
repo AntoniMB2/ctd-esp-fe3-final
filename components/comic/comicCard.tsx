@@ -40,14 +40,17 @@ const ComicCard: React.FC<ComicCardProps> = ({ comic }) => {
       "& > button": { flexGrow: 0.6, maxWidth: "40%", marginTop: "20px" },
      }}
     >
-     <Button variant="contained" size="small">
-      Comprar
-     </Button>
      <Link href={`/comics/${comic.id}`}>
-          <Button variant="contained" size="small">
-            Ver detalle
-          </Button>
-        </Link>
+      <Button variant="contained" size="small">
+       Comprar
+      </Button>
+     </Link>
+
+     <Link href={`/comics/${comic.id}`}>
+      <Button variant="contained" size="small" color="secondary">
+       Ver detalle
+      </Button>
+     </Link>
     </Box>
    </CardContent>
   </Card>
