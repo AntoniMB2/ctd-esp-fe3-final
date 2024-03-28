@@ -41,7 +41,11 @@ const CheckoutPage = () => {
    return;
   }
   try {
-   console.log("datos formulariosdds", data);
+   const addressData = {
+    address: data.customer.address.address2,
+   };
+   localStorage.setItem("deliveryAddress", JSON.stringify(addressData));
+
    const response = await fetch("api/checkout", {
     method: "POST",
     headers: {
@@ -77,10 +81,9 @@ const CheckoutPage = () => {
     setOpenSnackbar(true);
     return;
    }
-
+   localStorage.setItem("isCheckoutFlowCompleted", "true");
    const responseData = await response.json();
    console.log(responseData);
-   // Redirigir al usuario a la página de confirmación
    router.push("/confirmacion-compra");
   } catch (error) {
    console.error(error);
@@ -134,7 +137,11 @@ const CheckoutPage = () => {
  }, []);
  return (
   <LayoutCheckout>
-   <Grid container spacing={2} style={{display:"flex",justifyContent:"center"}}>
+   <Grid
+    container
+    spacing={2}
+    style={{ display: "flex", justifyContent: "center" }}
+   >
     <Grid item xs={12} md={6}>
      <Box
       component="form"
@@ -302,7 +309,7 @@ const CheckoutPage = () => {
          fullWidth
         />
         <TextField
-         {...register("card.name", { required:  true })}
+         {...register("card.name", { required: true })}
          error={Boolean(errors.card?.name)}
          helperText={errors.card?.name && "Nombre en la tarjeta es requerido"}
          label="Nombre del titular"
