@@ -16,11 +16,8 @@ const nextConfig = {
     pageExtensions: ['page.tsx', 'page.ts', 'route.tsx', 'route.ts'],
     env:{
         MARVEL_API_URL: process.env.MARVEL_API_URL,
-       
         MARVEL_API_PUBLIC_KEY: process.env.MARVEL_API_PUBLIC_KEY,
         MARVEL_API_PRIVATE_KEY: process.env.MARVEL_API_PRIVATE_KEY,
     }
 }
-
-console.log(process.env.MARVEL_API_URL);
 module.exports = nextConfig
