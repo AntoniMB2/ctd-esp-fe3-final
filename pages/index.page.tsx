@@ -1,4 +1,4 @@
-// En Index
+
 import type { NextPage, GetStaticProps } from "next";
 import Head from "next/head";
 import { useState, useEffect } from "react";
