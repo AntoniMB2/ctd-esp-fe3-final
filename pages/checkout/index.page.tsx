@@ -1,4 +1,4 @@
-import React, { useState,useEffect, FormEvent,SyntheticEvent } from "react";
+import React, { useState, useEffect, FormEvent, SyntheticEvent } from "react";
 import { useForm, SubmitHandler } from "react-hook-form";
 import { useRouter } from "next/router";
 import {
@@ -36,15 +36,22 @@ const CheckoutPage = () => {
  const [snackbarMessage, setSnackbarMessage] = useState("");
 
  const onSubmit: SubmitHandler<ICheckout> = async (data) => {
+  if (!data) {
+   console.log("data es undefined o vacío");
+   return;
+  }
   try {
-   const response = await fetch("/api/checkout", {
-    // Asegúrate de reemplazar '/api/checkout' con la ruta correcta a tu API
-    method: "POST",
-    headers: {
-     "Content-Type": "application/json",
+   console.log("datos formulariosdds", data);
+   const response = await fetch(
+    "api/checkout",
+    {
+     method: "POST",
+     headers: {
+      "Content-Type": "application/json",
+     },
+     body: JSON.stringify(data),
     },
-    body: JSON.stringify(data),
-   });
+   );
 
    if (!response.ok) {
     const errorData = await response.json();
@@ -96,35 +103,38 @@ const CheckoutPage = () => {
  const handleBack = () => {
   setActiveStep((prevActiveStep) => prevActiveStep - 1);
  };
- const handleCloseSnackbar = (event: React.SyntheticEvent | Event, reason: SnackbarCloseReason) => {
-    if (reason === 'clickaway') {
-      return;
-    }
-  
-    setOpenSnackbar(false);
-  };
+ const handleCloseSnackbar = (
+  event: React.SyntheticEvent | Event,
+  reason: SnackbarCloseReason,
+ ) => {
+  if (reason === "clickaway") {
+   return;
+  }
 
-// Define el tipo para el objeto comic
-type Comic = {
-    nombre: string;
-    imagen: string;
-    precio: string;
-  };
-  
-  // Crea el estado para el objeto comic
-  const [comic, setComic] = useState<Comic>({
-    nombre: '',
-    imagen: '',
-    precio: '',
-  });
-  
-// Recupera los datos del almacenamiento local cuando la página se carga
-useEffect(() => {
-    const storedComic = localStorage.getItem('comic');
-    if (storedComic) {
-      setComic(JSON.parse(storedComic));
-    }
-  }, []);
+  setOpenSnackbar(false);
+ };
+
+ // Define el tipo para el objeto comic
+ type Comic = {
+  nombre: string;
+  imagen: string;
+  precio: string;
+ };
+
+ // Crea el estado para el objeto comic
+ const [comic, setComic] = useState<Comic>({
+  nombre: "",
+  imagen: "",
+  precio: "",
+ });
+
+ // Recupera los datos del almacenamiento local cuando la página se carga
+ useEffect(() => {
+  const storedComic = localStorage.getItem("comic");
+  if (storedComic) {
+   setComic(JSON.parse(storedComic));
+  }
+ }, []);
  return (
   <LayoutCheckout>
    <Grid container spacing={2}>
@@ -169,31 +179,31 @@ useEffect(() => {
          Datos personales
         </Typography>
         <TextField
-         {...register("personalData.nombre", { required: true })}
-         error={Boolean(errors.personalData?.nombre)}
-         helperText={errors.personalData?.nombre && "Nombre es requerido"}
+         {...register("customer.firstName", { required: true })}
+         error={Boolean(errors.customer?.firstName)}
+         helperText={errors.customer?.firstName && "Nombre es requerido"}
          label="Nombre"
          variant="outlined"
          InputLabelProps={{ shrink: true }}
          fullWidth
         />
         <TextField
-         {...register("personalData.apellido", { required: true })}
-         error={Boolean(errors.personalData?.apellido)}
-         helperText={errors.personalData?.apellido && "Apellido es requerido"}
+         {...register("customer.lastName", { required: true })}
+         error={Boolean(errors.customer?.lastName)}
+         helperText={errors.customer?.lastName && "Apellido es requerido"}
          label="Apellido"
          variant="outlined"
          InputLabelProps={{ shrink: true }}
          fullWidth
         />
         <TextField
-         {...register("personalData.email", {
+         {...register("customer.email", {
           required: true,
           pattern: /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i,
          })}
-         error={Boolean(errors.personalData?.email)}
+         error={Boolean(errors.customer?.email)}
          helperText={
-          errors.personalData?.email && "Email es requerido o no es válido"
+          errors.customer?.email && "Email es requerido o no es válido"
          }
          label="Email"
          variant="outlined"
@@ -217,10 +227,10 @@ useEffect(() => {
          Dirección de entrega
         </Typography>
         <TextField
-         {...register("personalData.direccion.calle", { required: true })}
-         error={Boolean(errors.personalData?.direccion?.calle)}
+         {...register("customer.address.address2", { required: true })}
+         error={Boolean(errors.customer?.address?.address2)}
          helperText={
-          errors.personalData?.direccion?.calle && "Dirección es requerida"
+          errors.customer?.address?.address2 && "Dirección es requerida"
          }
          label="Dirección"
          variant="outlined"
@@ -228,17 +238,21 @@ useEffect(() => {
          fullWidth
         />
         <TextField
-         {...register("personalData.direccion.provincia", { required: true })}
+         {...register("customer.address.departamento", { required: true })}
+         error={Boolean(errors.customer?.address?.departamento)}
+         helperText={
+          errors.customer?.address?.departamento && "Departamento es requerido"
+         }
          label="Departamento"
          variant="outlined"
          InputLabelProps={{ shrink: true }}
          fullWidth
         />
         <TextField
-         {...register("personalData.direccion.provincia", { required: true })}
-         error={Boolean(errors.personalData?.direccion?.provincia)}
+         {...register("customer.address.provincia", { required: true })}
+         error={Boolean(errors.customer?.address?.provincia)}
          helperText={
-          errors.personalData?.direccion?.provincia && "Provincia es requerida"
+          errors.customer?.address?.provincia && "Provincia es requerida"
          }
          label="Provincia"
          variant="outlined"
@@ -246,24 +260,19 @@ useEffect(() => {
          fullWidth
         />
         <TextField
-         {...register("personalData.direccion.ciudad", { required: true })}
-         error={Boolean(errors.personalData?.direccion?.ciudad)}
-         helperText={
-          errors.personalData?.direccion?.ciudad && "Ciudad es requerida"
-         }
+         {...register("customer.address.ciudad", { required: true })}
+         error={Boolean(errors.customer?.address?.ciudad)}
+         helperText={errors.customer?.address?.ciudad && "Ciudad es requerida"}
          label="Ciudad"
          variant="outlined"
          InputLabelProps={{ shrink: true }}
          fullWidth
         />
         <TextField
-         {...register("personalData.direccion.codigoPostal", {
-          required: true,
-         })}
-         error={Boolean(errors.personalData?.direccion?.codigoPostal)}
+         {...register("customer.address.codigoPostal", { required: true })}
+         error={Boolean(errors.customer?.address?.codigoPostal)}
          helperText={
-          errors.personalData?.direccion?.codigoPostal &&
-          "Código postal es requerido"
+          errors.customer?.address?.codigoPostal && "Código postal es requerido"
          }
          label="Código Postal"
          variant="outlined"
@@ -287,44 +296,36 @@ useEffect(() => {
          Datos del pago
         </Typography>
         <TextField
-         {...register("paymentData.number", { required: true })}
-         error={Boolean(errors.paymentData?.number)}
-         helperText={
-          errors.paymentData?.number && "Número de tarjeta es requerido"
-         }
+         {...register("card.number", { required: true })}
+         error={Boolean(errors.card?.number)}
+         helperText={errors.card?.number && "Número de tarjeta es requerido"}
          label="Número de tarjeta"
          variant="outlined"
          InputLabelProps={{ shrink: true }}
          fullWidth
         />
         <TextField
-         {...register("paymentData.nameOnCard", { required: true })}
-         error={Boolean(errors.paymentData?.nameOnCard)}
-         helperText={
-          errors.paymentData?.nameOnCard && "Nombre en la tarjeta es requerido"
-         }
+         {...register("card.name", { required: true })}
+         error={Boolean(errors.card?.name)}
+         helperText={errors.card?.name && "Nombre en la tarjeta es requerido"}
          label="Nombre del titular"
          variant="outlined"
          InputLabelProps={{ shrink: true }}
          fullWidth
         />
         <TextField
-         {...register("paymentData.expDate", { required: true })}
-         error={Boolean(errors.paymentData?.expDate)}
-         helperText={
-          errors.paymentData?.expDate && "Fecha de expiración es requerida"
-         }
+         {...register("card.expiry", { required: true })}
+         error={Boolean(errors.card?.expiry)}
+         helperText={errors.card?.expiry && "Fecha de expiración es requerida"}
          label="Fecha de expiración"
          variant="outlined"
          InputLabelProps={{ shrink: true }}
          fullWidth
         />
         <TextField
-         {...register("paymentData.cvc", { required: true })}
-         error={Boolean(errors.paymentData?.cvc)}
-         helperText={
-          errors.paymentData?.cvc && "Código de seguridad es requerido"
-         }
+         {...register("card.cvc", { required: true })}
+         error={Boolean(errors.card?.cvc)}
+         helperText={errors.card?.cvc && "Código de seguridad es requerido"}
          label="Código de seguridad"
          variant="outlined"
          type="password"
@@ -353,7 +354,7 @@ useEffect(() => {
         autoHideDuration={6000}
         onClose={handleCloseSnackbar}
         message={snackbarMessage}
-      />
+       />
       </Box>
      </Box>
     </Grid>
