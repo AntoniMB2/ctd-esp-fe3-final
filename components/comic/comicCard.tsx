@@ -39,8 +39,14 @@ const ComicCard: React.FC<ComicCardProps> = ({ comic }) => {
       "& > button": { flexGrow: 0.6, maxWidth: "40%", marginTop: "20px" },
      }}
     >
- <Link href={`/checkout/?title=${encodeURIComponent(comic.title)}&image=${encodeURIComponent(`${comic.thumbnail.path}.${comic.thumbnail.extension}`)}&price=${encodeURIComponent(comic.prices[0]?.price.toString())}`}>
-  <Button variant="contained" size="small">
+<Link href={`/checkout/`}>
+  <Button variant="contained" size="small" onClick={() => {
+    localStorage.setItem('comic', JSON.stringify({
+      nombre: comic.title,
+      imagen: `${comic.thumbnail.path}.${comic.thumbnail.extension}`,
+      precio: comic.prices[0]?.price.toString(),
+    }));
+  }}>
     Comprar
   </Button>
 </Link>
