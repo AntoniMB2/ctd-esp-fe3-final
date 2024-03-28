@@ -51,7 +51,7 @@ const Index: NextPage<Props> = ({ initialComics }) => {
 
       <BodySingle title={"Comics"}>
         <ComicGrid comics={comics} />
-        <Pagination onPageChange={setCurrentPage} />
+        <Pagination currentPage={currentPage} onPageChange={setCurrentPage} />
       </BodySingle>
     </LayoutGeneral>
   );

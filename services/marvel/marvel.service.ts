@@ -14,8 +14,6 @@ export const getComics = async (offset?: number, limit?: number) => {
     const params = new URLSearchParams();
     if (offset) params.set("offset", `${offset}`);
     if (limit) params.set("limit", `${limit}`);
-     const response = await fetchApi("comics", params.toString());
-    console.log(response); 
     return fetchApi("comics", params.toString());
 }
 

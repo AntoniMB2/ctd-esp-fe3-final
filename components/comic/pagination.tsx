@@ -1,22 +1,18 @@
 import React, { useState,useEffect } from "react";
 import { Button,Box } from "@mui/material";
 interface PaginationProps {
- onPageChange: (page: number) => void;
+  currentPage: number;
+  onPageChange: (page: number) => void;
 }
 
-const Pagination: React.FC<PaginationProps> = ({ onPageChange }) => {
-    const [currentPage, setCurrentPage] = useState(1);
-
-    useEffect(() => {
-      onPageChange(currentPage);
-    }, [currentPage, onPageChange]);
+const Pagination: React.FC<PaginationProps> = ({ currentPage, onPageChange }) => {
     
     const handlePrevious = () => {
-      setCurrentPage((prevPage) => Math.max(1, prevPage - 1)); // No permite ir por debajo de la página 1
+      onPageChange(Math.max(1, currentPage - 1)); // No permite ir por debajo de la página 1
     };
     
     const handleNext = () => {
-      setCurrentPage((prevPage) => prevPage + 1);
+      onPageChange(currentPage + 1);
     };
 
  return (

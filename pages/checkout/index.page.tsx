@@ -59,10 +59,10 @@ const CheckoutPage = () => {
     console.error(errorData);
     // Aquí se manejan los errores específicos de la API
     switch (errorData.error) {
-     case "ERROR_CARD_WITHOUT_FUNDS":
+     case "CARD_WITHOUT_FUNDS":
       setSnackbarMessage("Tarjeta sin fondos disponibles");
       break;
-     case "ERROR_CARD_WITHOUT_AUTHORIZATION":
+     case "CARD_WITHOUT_AUTHORIZATION":
       setSnackbarMessage(
        "Tarjeta sin autorización. Comuníquese con su banco e intente nuevamente.",
       );
@@ -307,6 +307,7 @@ const CheckoutPage = () => {
          variant="outlined"
          InputLabelProps={{ shrink: true }}
          fullWidth
+         placeholder="eg: 4242424242424242"
         />
         <TextField
          {...register("card.name", { required: true })}
@@ -331,6 +332,7 @@ const CheckoutPage = () => {
          variant="outlined"
          InputLabelProps={{ shrink: true }}
          fullWidth
+         placeholder="eg: 12/23"
         />
         <TextField
          {...register("card.cvc", {
@@ -345,6 +347,7 @@ const CheckoutPage = () => {
          label="Código de seguridad"
          variant="outlined"
          type="text"
+         placeholder="eg: 123"
          InputLabelProps={{ shrink: true }}
          fullWidth
         />
