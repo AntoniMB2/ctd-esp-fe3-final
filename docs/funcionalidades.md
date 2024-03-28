@@ -131,7 +131,7 @@ Mostrar una sección verde con el mensaje “Que disfrutes tu compra”, junto a
 Una sección inferior, con los datos personales, la dirección de entrega, y el precio pagado por el cómic.
 Esta página deberá utilizar el Layout de compra, que contiene un encabezado y un pie de página bien simple, con el objetivo de no distraer al usuario del proceso de compra.
 
-
+"
 
 ### Página 6: Preguntas frecuentes (FAQ)
 

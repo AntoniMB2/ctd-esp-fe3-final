@@ -42,16 +42,13 @@ const CheckoutPage = () => {
   }
   try {
    console.log("datos formulariosdds", data);
-   const response = await fetch(
-    "api/checkout",
-    {
-     method: "POST",
-     headers: {
-      "Content-Type": "application/json",
-     },
-     body: JSON.stringify(data),
+   const response = await fetch("api/checkout", {
+    method: "POST",
+    headers: {
+     "Content-Type": "application/json",
     },
-   );
+    body: JSON.stringify(data),
+   });
 
    if (!response.ok) {
     const errorData = await response.json();
@@ -66,7 +63,7 @@ const CheckoutPage = () => {
        "Tarjeta sin autorización. Comuníquese con su banco e intente nuevamente.",
       );
       break;
-     case "ERROR_CARD_DATA_INCORRECT":
+     case "CARD_DATA_INCORRECT":
       setSnackbarMessage("Datos de tarjeta incorrecta");
       break;
      case "ERROR_INCORRECT_ADDRESS":
@@ -84,7 +81,7 @@ const CheckoutPage = () => {
    const responseData = await response.json();
    console.log(responseData);
    // Redirigir al usuario a la página de confirmación
-   router.push("/confirmation");
+   router.push("/confirmacion-compra");
   } catch (error) {
    console.error(error);
    setSnackbarMessage("Ha ocurrido un error inesperado.");
@@ -137,7 +134,7 @@ const CheckoutPage = () => {
  }, []);
  return (
   <LayoutCheckout>
-   <Grid container spacing={2}>
+   <Grid container spacing={2} style={{display:"flex",justifyContent:"center"}}>
     <Grid item xs={12} md={6}>
      <Box
       component="form"
@@ -305,7 +302,7 @@ const CheckoutPage = () => {
          fullWidth
         />
         <TextField
-         {...register("card.name", { required: true })}
+         {...register("card.name", { required:  true })}
          error={Boolean(errors.card?.name)}
          helperText={errors.card?.name && "Nombre en la tarjeta es requerido"}
          label="Nombre del titular"
@@ -314,21 +311,33 @@ const CheckoutPage = () => {
          fullWidth
         />
         <TextField
-         {...register("card.expiry", { required: true })}
+         {...register("card.expiry", {
+          required: "Fecha de expiración es requerida",
+          pattern: {
+           value: /^(0[1-9]|1[0-2])\/(0[1-9]|[12][0-9]|3[01])$/,
+           message: "Ingrese una fecha válida en el formato MM/DD",
+          },
+         })}
          error={Boolean(errors.card?.expiry)}
-         helperText={errors.card?.expiry && "Fecha de expiración es requerida"}
+         helperText={errors.card?.expiry?.message}
          label="Fecha de expiración"
          variant="outlined"
          InputLabelProps={{ shrink: true }}
          fullWidth
         />
         <TextField
-         {...register("card.cvc", { required: true })}
+         {...register("card.cvc", {
+          required: "Código de seguridad es requerido",
+          pattern: {
+           value: /^[0-9]{3}$/,
+           message: "Ingrese un código de seguridad válido de 3 dígitos",
+          },
+         })}
          error={Boolean(errors.card?.cvc)}
-         helperText={errors.card?.cvc && "Código de seguridad es requerido"}
+         helperText={errors.card?.cvc?.message}
          label="Código de seguridad"
          variant="outlined"
-         type="password"
+         type="text"
          InputLabelProps={{ shrink: true }}
          fullWidth
         />
