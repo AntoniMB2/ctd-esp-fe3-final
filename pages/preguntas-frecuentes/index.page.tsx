@@ -1,7 +1,7 @@
 // pages/faqs.tsx
 import React from 'react';
 import FAQ from '../../components/preguntas-frecuentes/index.page';
-
+import LayoutGeneral from '../../components/layouts/layout-general';
 interface FAQData {
   id: number;
   question: string;
@@ -24,12 +24,15 @@ interface FaqsProps {
 }
 
 const Faqs: React.FC<FaqsProps> = ({ faqsData }) => {
+  
   return (
-    <div>
+    <LayoutGeneral>
+      <div style={{ display: 'flex', flexDirection: 'column' }}>
       {faqsData.map((faq) => (
         <FAQ key={faq.id} question={faq.question} answer={faq.answer} />
       ))}
-    </div>
+      </div>
+    </LayoutGeneral>
   );
 }
 
