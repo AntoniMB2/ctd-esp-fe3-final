@@ -37,9 +37,7 @@ const Index: NextPage<Props> = ({ initialComics }) => {
     fetchComics();
   }, [currentPage]);
 
-  if (isLoading) {
-    return <p>Cargando...</p>;
-  }
+
 
   return (
     <LayoutGeneral>
@@ -50,8 +48,14 @@ const Index: NextPage<Props> = ({ initialComics }) => {
       </Head>
 
       <BodySingle title={"Comics"}>
-        <ComicGrid comics={comics} />
-        <Pagination currentPage={currentPage} onPageChange={setCurrentPage} />
+        {isLoading ? (
+          <p>Cargando...</p>
+        ) : (
+          <>
+            <ComicGrid comics={comics} />
+            <Pagination currentPage={currentPage} onPageChange={setCurrentPage} />
+          </>
+        )}
       </BodySingle>
     </LayoutGeneral>
   );
